@@ -2,12 +2,14 @@ const express = require('express');
 const app = express();
 const connectDataBase = require('./dataBase/conectarMongoDB')
 
-app.get('/', function (req, res) {
-    res.send('Hello Word')
-});
+const userRoute = require('./routes/UserRoute');
+
+const port = 3000;
 
 connectDataBase()
+app.use(express.json());
+app.use("/user", userRoute);
 
-app.listen(3000, function() {
+app.listen(port, () => 
     console.log('Servidor rodando!')
-});
+);
