@@ -5,17 +5,17 @@ const create = async (req, res) => {
         const { name, email, password } = req.body;   
 
     if (!name || !email || !password) {
-        res.status(400).send({msg: "enviar todos os campos para o registro" });
+        res.status(400).send({msg: "send all fields to record" });
     }
 
     const User = await UserService.create(req.body);
 
     if(!User) {
-        return res.status(400).send({msg: 'Erro ao criar usuário'});
+        return res.status(400).send({msg: 'Error creating user'});
     }
 
     res.status(201).send ({
-        msg: "Usuário criado com sucesso",
+        msg: "User created successfully",
         User: {
             user: User._id,
             name,
@@ -26,10 +26,9 @@ const create = async (req, res) => {
     } catch (error) {
         console.log(error);
             if(create) {
-                return res.status(401).json({error: 'Já existe um usuário com esse gmail'});
+                return res.status(401).json({error: 'There is already a user with this gmail'});
             }
     }
-
 };
 
 module.exports = {create};
